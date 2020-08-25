@@ -11,7 +11,7 @@ theme_settings:
   profile:
     image: assets/img/smile.png
     username: Mrzzjiy
-    description: based on Grape-Theme!.
+    description: 路漫漫其修远兮，吾将上下而求索；based on skeyll Grape-Theme!.
     experience:
       - start: 2017-05-03
         end: 2018-05-06
