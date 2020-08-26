@@ -227,7 +227,7 @@ Type help followed by a command for full documentation.
 ```
 
 简单使用下来，还是觉得很方便，信息很详细。
-```shell script
+```shell
 (dlv) r
 Process restarted with PID 8834
 (dlv) c
