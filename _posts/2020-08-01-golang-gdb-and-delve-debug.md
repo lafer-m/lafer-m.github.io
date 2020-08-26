@@ -33,7 +33,8 @@ func main() {
 ## gdb调试golang
   官方不推荐用gdb调试，更推荐golang开发的delve，比gdb更容易理解golang的数据结构及runtime,当然用gdb调试go runtime貌似也是可以的；如果只是撸业务逻辑，我一般都是用IDE来调试，主要是更方便；当然是debug不了runtime的。  
   在mac上用gdb调试,由于golang1.11版本后为了减小bin文件的大小，对调试信息做了压缩，而mac上的gdb版本识别不了dwarf压缩后的调试信息，编译的时候需要加-ldflags=-compressdwarf=false，关闭压缩。  
-  官方文档https://golang.org/doc/gdb 
+  官方文档https://golang.org/doc/gdb   
+  参考这偏博文的gdb命令行解释：https://blog.csdn.net/liigo/article/details/582231?utm_source=copy
 ```bash
 go build -gcflags "-N -l" -ldflags "-compressdwarf=false" -o hello main.go
 ```  
