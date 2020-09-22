@@ -4,7 +4,7 @@ title: vue3.0+typescript+ant-design-vue+beego搭建简单的devops页面自动�
 tags: [web]
 ---
   vue3.0 + typescript + ant-design-vue@next 搭建简单的web开发环境, 由于vue3.0组件库还不完善，所以不推荐生产环境使用，仅测试用。   
-  本文搭建的工具为前后端分离的，github地址为：https://github.com/lafer-m/devops-deploy, 后台beego，部署工具默认为ansible,通过将ansible的all.yml及
+  本文搭建的工具为前后端分离的，[github地址](https://github.com/lafer-m/devops-deploy), 后台beego，部署工具默认为ansible,通过将ansible的all.yml及
   inventory配置放到页面生成，达到简单定制部署的目的。当然不是很完善，希望这个初始化的项目对你有所帮助。ansible-tower是官方的部署页面，功能完善，推荐使用。
 ### 起手式
 如果有安装1.x 2.x的vue-cli需要先卸载，本文基于vue cli来搭建 
