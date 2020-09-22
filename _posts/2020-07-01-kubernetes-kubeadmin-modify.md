@@ -1,3 +1,9 @@
+---
+layout: post
+title: kubernetes 修改kubeadm工具生成的证书有效期限
+tags: [web]
+---
+
 ## kubeadm工具
 k8s部署工具
 
