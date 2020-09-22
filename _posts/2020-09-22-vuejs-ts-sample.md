@@ -9,7 +9,7 @@ tags: [web]
 ### 起手式
 如果有安装1.x 2.x的vue-cli需要先卸载，本文基于vue cli来搭建 
  
-```shell script
+```
     npm uninstall vue-cli -g 
 #Vue CLI 4.x 需要 Node.js v8.9 或更高版本 (推荐 v10 以上), 可以用nvm管理多版本node  
     node --version
@@ -17,7 +17,7 @@ tags: [web]
 ``` 
 
 安装vue cli
-```shell script
+```
     npm install -g @vue/cli
     @vue/cli 4.5.4
     #创建一个新的自动部署的页面项目  
@@ -53,7 +53,7 @@ tags: [web]
 经过初始化后，可以通过src目录下的main.js来引入ant,本文简单使用，只import了部分组件    
 vue3.0果然是简单明了。  
 
-```shell script
+```
   import {createApp} from 'vue'
   import {Select} from 'ant-design-vue'
   import App from './App.vue'
@@ -216,7 +216,7 @@ css: {
 ### style-resources-loader如何全局引入scss  
 
 vue.config.js配置文件中引入如下配置
-```shell script
+```
 pluginOptions: {
         'style-resources-loader': {
             preProcessor: 'scss',
