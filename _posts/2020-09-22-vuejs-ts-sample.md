@@ -8,21 +8,21 @@ tags: [web]
   inventory配置放到页面生成，达到简单定制部署的目的。当然不是很完善，希望这个初始化的项目对你有所帮助。ansible-tower是官方的部署页面，功能完善，推荐使用。
 ### 起手式
    如果有安装1.x 2.x的vue-cli需要先卸载，本文基于vue cli来搭建  
-   ```shell script
+```shell script
     npm uninstall vue-cli -g
-   ```  
+```  
    Vue CLI 4.x 需要 Node.js v8.9 或更高版本 (推荐 v10 以上), 可以用nvm管理多版本node  
-   ```shell script
+```shell script
     node --version
     v10.15.3
-  ``` 
+``` 
    安装vue cli
-   ```shell script
+```shell script
     npm install -g @vue/cli
     @vue/cli 4.5.4
 ```
    创建一个新的自动部署的页面项目  
-   ```shell script 
+```shell script 
     vue create auto-setup-web
     手动选择如下的配置创建项目, 然后一路回车下去。    
     Vue CLI v4.5.4
@@ -47,12 +47,12 @@ tags: [web]
   
 ### ant-design-vue
   安装依赖
-  ```
+```
     yarn add ant-design-vue@next
 ```
   经过初始化后，可以通过src目录下的main.js来引入ant,本文简单使用，只import了部分组件    
   vue3.0果然是简介明了。  
-  ```shell script
+```shell script
   import {createApp} from 'vue'
   import {Select} from 'ant-design-vue'
   import App from './App.vue'
@@ -230,7 +230,7 @@ todo
 
 
 ### sample pic
-[demo](http://www.mrzzjiy.cn/assets/demo.png)
+![demo](http://www.mrzzjiy.cn/assets/demo.png)
 
 
 
