@@ -1,7 +1,7 @@
 ---
 layout: post
 title: kubernetes 修改kubeadm工具生成的证书有效期限
-tags: [web]
+tags: [kubernetes]
 ---
 
 ## kubeadm工具
