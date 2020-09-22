@@ -7,21 +7,23 @@ tags: [web]
   本文搭建的工具为前后端分离的，github地址为：https://github.com/lafer-m/devops-deploy, 后台beego，部署工具默认为ansible,通过将ansible的all.yml及
   inventory配置放到页面生成，达到简单定制部署的目的。当然不是很完善，希望这个初始化的项目对你有所帮助。ansible-tower是官方的部署页面，功能完善，推荐使用。
 ### 起手式
-   如果有安装1.x 2.x的vue-cli需要先卸载，本文基于vue cli来搭建  
+如果有安装1.x 2.x的vue-cli需要先卸载，本文基于vue cli来搭建  
 ```shell script
     npm uninstall vue-cli -g
 ```  
-   Vue CLI 4.x 需要 Node.js v8.9 或更高版本 (推荐 v10 以上), 可以用nvm管理多版本node  
+
+Vue CLI 4.x 需要 Node.js v8.9 或更高版本 (推荐 v10 以上), 可以用nvm管理多版本node  
 ```shell script
     node --version
     v10.15.3
 ``` 
-   安装vue cli
+安装vue cli
 ```shell script
     npm install -g @vue/cli
     @vue/cli 4.5.4
 ```
-   创建一个新的自动部署的页面项目  
+
+创建一个新的自动部署的页面项目  
 ```shell script 
     vue create auto-setup-web
     手动选择如下的配置创建项目, 然后一路回车下去。    
@@ -40,18 +42,19 @@ tags: [web]
      ◯ E2E Testing
 
 ```
-  配置https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE  
+配置https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE  
   官方文档撸起，vue.config.js配置好之后，就可以开始撸码了，引入element ui组件,如果是用的最新的vue3.0版本，那么现在element ui还是不支持的。  
   本文用的就是vue3.0，目前pc端的ui库有ant-design-vue支持vue3.0的测试版本，所以本文就基于ant vue来做一些测试。  
   本文的示例代码全部来自devops-deploy仓库，详细请查看github，可随便使用。
   
 ### ant-design-vue
-  安装依赖
+安装依赖
 ```
     yarn add ant-design-vue@next
 ```
-  经过初始化后，可以通过src目录下的main.js来引入ant,本文简单使用，只import了部分组件    
-  vue3.0果然是简介明了。  
+
+经过初始化后，可以通过src目录下的main.js来引入ant,本文简单使用，只import了部分组件    
+vue3.0果然是简单明了。  
 ```shell script
   import {createApp} from 'vue'
   import {Select} from 'ant-design-vue'
@@ -64,7 +67,8 @@ tags: [web]
   createApp(App).use(Select).use(store).use(router).mount('#app')
 ```
 
-### axios http client使用
+### axios http client使用  
+
 ```shell script
 npm install -save axios
 # src目录下新建api目录， 代码如下，添加请求拦截，封装request
@@ -121,7 +125,8 @@ export default function request(method: Method, config: FetchConfig = {path: '',
     })
 }
 ```
-### vue-class-component@next使用,目前还在还是beta版本
+### vue-class-component@next使用,目前还在还是beta版本  
+
 这个组件目前也有beta版本支持vue3，如下说明一下简单的使用
 ```shell script
 ##先封装一个Watch及Prop的decorator装饰器，方便后续的component页面使用
@@ -173,7 +178,8 @@ export const Prop = (cops: {}) => {
     }
 ```
 
-### vuex store使用
+### vuex store使用  
+
 vuex store使用官方文档已经有4.0的，可以用来给各个组件间做数据
 共享。
 ```shell script
@@ -188,7 +194,8 @@ export default createStore({
 })
 ```
 
-### ant-design-vue 组件使用
+### ant-design-vue 组件使用  
+
 2.x版本支持vue3，文档https://2x.antdv.com/docs/vue/introduce-cn/  
 引入ant的时候需要开启less loader,安装相应的依赖。vue.config.js中引入如下配置
 ```shell script
@@ -204,7 +211,8 @@ css: {
 ```
 
 
-### style-resources-loader如何全局引入scss
+### style-resources-loader如何全局引入scss  
+
 vue.config.js配置文件中引入如下配置
 ```shell script
 pluginOptions: {
@@ -219,7 +227,8 @@ pluginOptions: {
     },
 ```
 
-#### 全局mixin扩展引入
+#### 全局mixin扩展引入  
+
 mixin引入的话，也是通过style-resources-loader来全局引入
 
 ### yaml配置文件生成及下载
@@ -229,7 +238,8 @@ todo
 todo
 
 
-### sample pic
+### sample pic  
+
 ![demo](http://www.mrzzjiy.cn/assets/demo.png)
 
 
