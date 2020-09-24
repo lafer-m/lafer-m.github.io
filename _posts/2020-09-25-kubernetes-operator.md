@@ -5,12 +5,12 @@ tags: [kubernetes]
 ---
 
 ### k8s工作流简述
-本文的apigroup用x.xx.x替换，你可以认为是deployment的group
+本文的apigroup用x.xx.x替换，你可以认为是deployment的group, 基于crd的controller分析， 自定义资源的名字为videoprocessor，可以任务是一个业务app。
 
-架构图：
+架构图：k8s的架构，主要是master node节点结构， master上有apiserver/controller/scheduler等，node上有kubelet/kube-proxy等，容器网络一般是二层的flannel,或者三层的vxlan.
 ![architecture.png](http://www.mrzzjiy.cn/assets/architecture.png)
 
-如下两张图，生动描述了k8s的一些工作流。   
+如下两张图，生动描述了k8s的一些工作流,扣的图，文章末尾有参考资料，大家也可以看下，写的很好。   
 
 ![scenes-from-kubernetes-page1.png](http://www.mrzzjiy.cn/assets/scenes-from-kubernetes-page1.png)
 ![scenes-from-kubernetes-page2.png](http://www.mrzzjiy.cn/assets/scenes-from-kubernetes-page2.png)
