@@ -4,8 +4,8 @@ title: k8s apiserve/controller及operator工作流解析
 tags: [kubernetes]
 ---
 
-### k8s工作流简述
-本文的apigroup用x.xx.x替换，你可以认为是deployment的group, 基于crd的controller分析， 自定义资源的名字为videoprocessor，可以任务是一个业务app。
+### k8s工作流简述  
+本文的apigroup用x.xx.x替换，你可以认为是deployment的group, 基于crd的controller分析， 自定义资源的名字为videoprocessor，可以认为是一个业务app。
 
 架构图：k8s的架构，主要是master node节点结构， master上有apiserver/controller/scheduler等，node上有kubelet/kube-proxy等，容器网络一般是二层的flannel,或者三层的vxlan.
 ![architecture.png](http://www.mrzzjiy.cn/assets/architecture.png)
@@ -17,7 +17,7 @@ tags: [kubernetes]
 
 
 videoprocessors get流程  
-    => GET https://172.20.26.162:6443/apis/algo.viper.sensetime.com/v1alpha2/namespaces/default/videoprocessors?limit=500；    
+    => GET https://172.20.26.162:6443/apis/x.xx.x/v1alpha2/namespaces/default/videoprocessors?limit=500；    
     => apiserver handler处理这个请求，从etcd获取配置信息；  
     => return json body  
     
@@ -39,7 +39,7 @@ etcd存储的k8s key:value都进行base64 encode
 
 例如videoprocessors的存储的key如下：  
 /registry/{group name}/{crd name}/{namespace}/{resource-name}  
-/registry/x.xx.x/videoprocessors/default/engine-video-process-worker-face
+/registry/x.xx.x/videoprocessors/default/a-b-c-d
 
 value的话，就是我们kubectl get videoprocessors a-b-c-d -o json的json结果。
 
@@ -78,7 +78,7 @@ TOKEN=$(kubectl get secret $(kubectl get serviceaccount my-admin -o jsonpath='{.
 curl -k https://172.20.25.160:6443/ --header "Authorization: Bearer $TOKEN"
 ```
 以下为个人理解，有误请随时指出。  
-我们可以看下apiserver的api组成结构， 由于历史原因是存在/api/v1这种组织形式的，这个的话可能就这样了吧，其实也就是一些核心的资源在这个rest下面，那新的组织方式是按照groupversion的方式来组织的，比如vps的资源apis/algo.viper.sensetime.com/v1alpha2/namespaces/default/videoprocessors，它的groupName是algo.viper.sensetime.com，版本是v1alpha2,后面的就是namespaces/{{namespace}}/{{资源名字}}, 需要指出的是namespaces是可选的，是可以不传的，默认的话就是default的namespace了。
+我们可以看下apiserver的api组成结构， 由于历史原因是存在/api/v1这种组织形式的，这个的话可能就这样了吧，其实也就是一些核心的资源在这个rest下面，那新的组织方式是按照groupversion的方式来组织的，比如vps的资源apis/x.xx.x/v1alpha2/namespaces/default/videoprocessors，它的groupName是x.xx.x，版本是v1alpha2,后面的就是namespaces/{{namespace}}/{{资源名字}}, 需要指出的是namespaces是可选的，是可以不传的，默认的话就是default的namespace了。
 ```
 #接口组织方式
 / 
@@ -87,7 +87,7 @@ curl -k https://172.20.25.160:6443/ --header "Authorization: Bearer $TOKEN"
       => /configmap等
       
   => /apis
-    => /algo.viper.sensetime.com/v1alpha1
+    => /x.xx.x/v1alpha1
       => /namespaces/default/videoprocessors
     => etc...  
     
@@ -224,7 +224,7 @@ watch可以作为一个path param传入，也可以作为一个query传入如下
 curl -k --header "Authorization: Bearer $TOKEN" https://172.20.25.160:6443/apis/x.xx.x/v1alpha2/namespaces/default/videoprocessors?watch=true&continue=true&fieldSelector=metadata.name=xxxxx 
 
 ### client-go lister informer机制
-前面有讲到apiserver的apigroup机制以及watch接口的使用，那现在讲的informer机制就依赖了apiserver的watch接口，直接以ips-operator的informer来看下具体是怎么实现的,借用下operator-sdk的图， 通过Reflector list Watch k8s资源，这里就是通过apiserver的watch接口实现，运行informer初始化会sync k8s的资源，接收watch事件并推送到deltaFIFO队列， 并通过indexer缓存起来，lister查询缓存；这样的机制不会给apiserver造成很大的压力。  
+前面有讲到apiserver的apigroup机制以及watch接口的使用，那现在讲的informer机制就依赖了apiserver的watch接口，借用下operator-sdk的图， 通过Reflector list Watch k8s资源，这里就是通过apiserver的watch接口实现，运行informer初始化会sync k8s的资源，接收watch事件并推送到deltaFIFO队列， 并通过indexer缓存起来，lister查询缓存；这样的机制不会给apiserver造成很大的压力。  
 一个简单的controller示例
 ```
 package main
@@ -293,7 +293,7 @@ func (e eventHandler) OnDelete(obj interface{}) {
 ![pic](http://www.mrzzjiy.cn/assets/operator-sdk.jpeg)
 
 ### apply一个videoprocssors资源的时候发生了啥？
-通过下图，比较明了的表现了apply一个smoking的vps app的时候，k8s到底发生了啥，如果还需要深入了解的话，就得深入源码分析了。
+通过下图，比较明了的表现了apply一个cr app的时候，k8s到底发生了啥，如果还需要深入了解的话，就得深入源码分析了。
 
 ![pic](http://www.mrzzjiy.cn/assets/k8s-crd-operator-flow.png)
 
