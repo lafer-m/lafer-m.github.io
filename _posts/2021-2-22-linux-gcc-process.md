@@ -38,6 +38,7 @@ shell将会调用loader加载器，加载a.out中的内容到内存中，并跳�
 ![compiler_driver.png](http://www.mrzzjiy.cn/assets/compiler_driver.png)
 
 ### Linkers vs Loaders   
+
 链接器与加载器的作用是息息相关的；  
 
 * 程序加载，将程序从磁盘加载到内存以便程序能够被执行；有些情况下，加载器会处理存储空间申请及虚拟内存映射磁盘页。
