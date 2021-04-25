@@ -4,30 +4,6 @@ title: golang/map内存布局详解
 tags: [golang]
 ---
 
-// A map is just a hash table. The data is arranged
-// into an array of buckets. Each bucket contains up to
-// 8 key/value pairs. The low-order bits of the hash are
-// used to select a bucket. Each bucket contains a few
-// high-order bits of each hash to distinguish the entries
-// within a single bucket.
-//
-// If more than 8 keys hash to a bucket, we chain on
-// extra buckets.
-//
-// When the hashtable grows, we allocate a new array
-// of buckets twice as big. Buckets are incrementally
-// copied from the old bucket array to the new bucket array.
-//
-// Map iterators walk through the array of buckets and
-// return the keys in walk order (bucket #, then overflow
-// chain order, then bucket index).  To maintain iteration
-// semantics, we never move keys within their bucket (if
-// we did, keys might be returned 0 or 2 times).  When
-// growing the table, iterators remain iterating through the
-// old table and must check the new table if the bucket
-// they are iterating through has been moved ("evacuated")
-// to the new table.
-
 golang map的实现是一个hash table，数据存储在一个bucket的数组里面，每个bucket最多保存8对key-value。
 
 ### 简介
